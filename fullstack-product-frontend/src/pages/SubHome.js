@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 export default function SubHome() {
+    
     const [products, setProducts] = useState([])
     useEffect(() => {
         loadProduct();
-    }, [])
+    }, []);
 
     const loadProduct = async () => {
         const result = await axios.get("http://localhost:8080/service/products");
         setProducts(result.data);
         console.log(result.data);
-    }
+    };
 
     return (
         <div className='container'>

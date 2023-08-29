@@ -36,15 +36,15 @@ public class Product {
     @Column(name = "origin_price", nullable = false)
     private Double originPrice;
 
-    @Column(name = "description", nullable = false, length = 1000)
+    @Column(name = "description", nullable = true, length = 1000)
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "sub_category_id")
+    @JoinColumn(name = "sub_category_id", nullable = false)
     private SubCategory subCategory;
 
     @ManyToOne
-    @JoinColumn(name = "status_id")
+    @JoinColumn(name = "status_id", nullable = false)
     private Status status;
 
     @ManyToMany
