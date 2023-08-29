@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function AddProduct() {
 
@@ -53,7 +53,7 @@ export default function AddProduct() {
   };
 
   return (
-    <div className='container'>
+    <div className='container mt-4'>
       <div className='row'>
         <div className='col-md-6 offset-md-3 border rounded p-4 mt-2 shadow'>
           <h2 className='text-center m-4 '>Add Product</h2>
@@ -93,7 +93,7 @@ export default function AddProduct() {
 
             <div className='mb-3'>
               <label htmlFor='ProductOriginPrice' className='form-label'>Product Origin Price</label>
-              <input type={'text'} className='form-control' placeholder="" name='originPrice'
+              <input type={'text'} className='form-control' placeholder="Enter Subcategory" name='originPrice'
                 value={originPrice}
                 onChange={(e) => onInputChange(e)}
               />
@@ -101,7 +101,7 @@ export default function AddProduct() {
 
             <div className='mb-3'>
               <label htmlFor='SubCategory' className='form-label'>SubCategory</label>
-              <select className='form-control' name='subCategory' value={subCategory.id} onChange={(e) => onInputChange(e)}>
+              <select className='form-select' name='subCategory' value={subCategory.id} onChange={(e) => onInputChange(e)}>
                 <option value={1}>Mỹ Phẩm 1</option>
                 <option value={2}>Mỹ Phẩm 2</option>
                 <option value={3}>Mỹ Phẩm 3</option>
@@ -110,16 +110,18 @@ export default function AddProduct() {
 
             <div className='mb-3'>
               <label htmlFor='Brands' className='form-label'>Brands</label>
-              <select className='form-control' name='brands' value={brands[0].id} onChange={(e) => onInputChange(e)}>
+              <select className='form-select' aria-label="Default select example" name='brands' value={brands[0].id} onChange={(e) => onInputChange(e)}>
                 <option value={1}>1CE</option>
                 <option value={2}>2CE</option>
                 <option value={3}>3CE</option>
               </select>
             </div>
 
-            <button type='submit' className='btn btn-primary'>Save</button>
+            <div className='mt-4'>
+              <button type='submit' className='btn btn-primary'>Save</button>
 
-            <button type='submit' className='btn btn-danger mx-2'>Cancel</button>
+              <Link className='btn btn-danger mx-2' to={"/"}>Cancel</Link>
+            </div>
 
           </form>
         </div>

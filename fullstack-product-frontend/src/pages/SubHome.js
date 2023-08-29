@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export default function SubHome() {
-    
-    const [products, setProducts] = useState([])
+
+    const [products, setProducts] = useState([]);
+
     useEffect(() => {
         loadProduct();
     }, []);
@@ -11,11 +13,15 @@ export default function SubHome() {
     const loadProduct = async () => {
         const result = await axios.get("http://localhost:8080/service/products");
         setProducts(result.data);
-        console.log(result.data);
     };
 
+    const deleteProduct = async (id) => {
+        await axios.delete(`http://localhost:8080/service/product/${id}`);
+        loadProduct();
+    }
+
     return (
-        <div className='container'>
+        <div className='container mt-4'>
             <div className='py-4'>
                 <table className="table table-hover table-striped">
                     <thead className='table-dark'>
@@ -33,21 +39,21 @@ export default function SubHome() {
                         {
                             products.map((product, index) => (
 
-                                <tr>
+                                <tr key={product.id}>
                                     <th scope="row" key={index}>{index + 1}</th>
                                     <td>{product.productName}</td>
                                     <td>
                                         {product.brands.map(brand => (
-                                            <td class="d-grid gap-2" key={brand.id}>{brand.brandName}</td>
+                                            <div className="d-grid gap-2" key={brand.id}>{brand.brandName}</div>
                                         ))}
                                     </td>
                                     <td>{product.subCategory.category.cateName}</td>
                                     <td>{product.sellPrice}</td>
                                     <td>{product.status.statusName}</td>
                                     <td>
-                                        <button className='btn btn-primary mx-2'>View</button>
-                                        <button className='btn btn-outline-primary mx-2'>Edit</button>
-                                        <button className='btn btn-danger mx-2'>Delete</button>
+                                        <Link className='btn btn-primary mx-2' to={`/viewProduct/${product.id}`}>View</Link>
+                                        <Link className='btn btn-outline-primary mx-2' to={`/editProduct/${product.id}`}>Edit</Link>
+                                        <button onClick={() => deleteProduct(product.id)} className='btn btn-danger mx-2'>Delete</button>
                                     </td>
                                 </tr>
                             ))
