@@ -11,11 +11,10 @@ import ViewProduct from './products/ViewProduct';
 function App() {
   return (
     <div className="App">
-      Nghĩa Pé Try To Learn React
       <Router>
         <Navbar />
         <Routes>
-          <Route exact path="/" element={<SubHome />} />
+          <Route exact path="/" element={ <SubHome />} />
           <Route exact path="/addProduct" element={<AddProduct />} />
           <Route exact path="/editProduct/:id" element={<EditProduct/>} />
           <Route exact path="/viewProduct/:id" element={<ViewProduct/>}></Route>

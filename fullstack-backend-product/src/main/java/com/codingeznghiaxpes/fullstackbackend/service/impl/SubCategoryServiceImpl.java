@@ -1,5 +1,6 @@
 package com.codingeznghiaxpes.fullstackbackend.service.impl;
 
+import com.codingeznghiaxpes.fullstackbackend.exception.ProductNotFoundException;
 import com.codingeznghiaxpes.fullstackbackend.model.SubCategory;
 import com.codingeznghiaxpes.fullstackbackend.repository.SubCategoryRepository;
 import com.codingeznghiaxpes.fullstackbackend.service.SubCategoryService;
@@ -19,5 +20,13 @@ public class SubCategoryServiceImpl implements SubCategoryService {
     @Override
     public List<SubCategory> getAllSubCategory() {
         return subCategoryRepository.findAll();
+    }
+
+    @Override
+    public SubCategory getSubCateById(Long id) {
+        if (id == null) {
+            return null;
+        }
+        return subCategoryRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
     }
 }

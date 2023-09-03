@@ -48,7 +48,7 @@ public class Product {
     private Status status;
 
     @ManyToMany
-    @JoinTable(
+    @JoinTable( 
             name = "product_brand",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "brand_id")

@@ -8,4 +8,6 @@ public interface StatusService {
 
     List<Status> getAllStatus();
 
+    Status getStatusById(Long id);
+
 }

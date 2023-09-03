@@ -8,4 +8,6 @@ public interface SubCategoryService {
 
     List<SubCategory> getAllSubCategory();
 
+    SubCategory getSubCateById(Long id);
+
 }

@@ -28,7 +28,7 @@ export default function EditProduct() {
         ]
     });
 
-    const { productName, color, quantity, sellPrice, originPrice, subCategory, brands } = product;
+    const { productName, color, quantity, sellPrice, originPrice, subCategory, brands, status } = product;
 
     const onInputChange = (e) => {
 
@@ -39,7 +39,10 @@ export default function EditProduct() {
 
         if (name === 'subCategory') {
             setProduct({ ...product, [name]: { id: value } });
-        } else if (name === 'brands') {
+        }if (name === 'status') {
+            setProduct({ ...product, [name]: { id: value } });
+        }
+         else if (name === 'brands') {
             setProduct({ ...product, [name]: [{ id: value }] });
         }
         else {
@@ -68,7 +71,7 @@ export default function EditProduct() {
         <div className='container mt-4'>
             <div className='row'>
                 <div className='col-md-6 offset-md-3 border rounded p-4 mt-2 shadow'>
-                    <h2 className='text-center m-4 '>Add Product</h2>
+                    <h2 className='text-center m-4 '>Edit Product</h2>
                     <form onSubmit={(e) => onSubmit(e)}>
 
                         <div className='mb-3'>
@@ -127,6 +130,14 @@ export default function EditProduct() {
                                 <option value={2}>2CE</option>
                                 <option value={3}>3CE</option>
                             </select>
+                        </div>
+
+                        <div className='mb-3'>
+                            <label htmlFor='Status' className='form-label'>Status</label>
+                            <select className='form-select' aria-label="Default select example" name='status' value={status.id} onChange={(e) => onInputChange(e)}>
+                                <option value={1}>Còn</option>
+                                <option value={2}>Hết</option>
+                            </select>   
                         </div>
 
                         <div className='mt-4'>

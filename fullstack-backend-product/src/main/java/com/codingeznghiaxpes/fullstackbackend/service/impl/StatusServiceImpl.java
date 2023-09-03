@@ -1,5 +1,6 @@
 package com.codingeznghiaxpes.fullstackbackend.service.impl;
 
+import com.codingeznghiaxpes.fullstackbackend.exception.ProductNotFoundException;
 import com.codingeznghiaxpes.fullstackbackend.model.Status;
 import com.codingeznghiaxpes.fullstackbackend.repository.StatusRepository;
 import com.codingeznghiaxpes.fullstackbackend.service.StatusService;
@@ -19,5 +20,13 @@ public class StatusServiceImpl implements StatusService {
     @Override
     public List<Status> getAllStatus() {
         return statusRepository.findAll();
+    }
+
+    @Override
+    public Status getStatusById(Long id) {
+        if(id == null){
+            return null;
+        }
+        return statusRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
     }
 }

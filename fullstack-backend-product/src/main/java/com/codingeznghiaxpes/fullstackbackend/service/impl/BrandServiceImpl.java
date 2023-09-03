@@ -1,5 +1,6 @@
 package com.codingeznghiaxpes.fullstackbackend.service.impl;
 
+import com.codingeznghiaxpes.fullstackbackend.exception.ProductNotFoundException;
 import com.codingeznghiaxpes.fullstackbackend.model.Brand;
 import com.codingeznghiaxpes.fullstackbackend.repository.BrandRepository;
 import com.codingeznghiaxpes.fullstackbackend.service.BrandService;
@@ -22,7 +23,10 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public Brand saveBrand(Brand brand) {
-        return brandRepository.save(brand);
+    public Brand getBrandById(Long id) {
+        if(id == null){
+            return null;
+        }
+        return brandRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
     }
 }

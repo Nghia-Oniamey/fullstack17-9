@@ -30,10 +30,7 @@ export default function AddProduct() {
 
   const onInputChange = (e) => {
 
-    // setProduct({ ...product, [e.target.name]: e.target.value });
-    // // or
     const { name, value } = e.target;
-    // setProduct({ ...product, [name]: productName});
 
     if (name === 'subCategory') {
       setProduct({ ...product, [name]: { id: value } });

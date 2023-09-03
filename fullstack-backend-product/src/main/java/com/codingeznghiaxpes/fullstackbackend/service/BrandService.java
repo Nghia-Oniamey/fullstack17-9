@@ -10,5 +10,6 @@ public interface BrandService {
 
     List<Brand> getAllBrand();
 
-    Brand saveBrand(Brand brand);
+    Brand getBrandById(Long id);
+
 }

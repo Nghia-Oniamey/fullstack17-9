@@ -26,14 +26,10 @@ export default function ViewProduct() {
         ]
     });
 
-    const { productName, color, quantity, sellPrice, originPrice, subCategory, brands } = product;
+    const { productName, color, quantity, sellPrice, originPrice, subCategory, brands, status } = product;
 
     const onInputChange = (e) => {
-
-        // setProduct({ ...product, [e.target.name]: e.target.value });
-        // // or
         const { name, value } = e.target;
-        // setProduct({ ...product, [name]: productName});
 
         if (name === 'subCategory') {
             setProduct({ ...product, [name]: { id: value } });
@@ -60,7 +56,7 @@ export default function ViewProduct() {
         <div className='container mt-4'>
             <div className='row'>
                 <div className='col-md-6 offset-md-3 border rounded p-4 mt-2 shadow'>
-                    <h2 className='text-center m-4 '>Add Product</h2>
+                    <h2 className='text-center m-4 '>View Product</h2>
                     <form>
 
                         <div className='mb-3'>
@@ -118,6 +114,14 @@ export default function ViewProduct() {
                                 <option value={1}>1CE</option>
                                 <option value={2}>2CE</option>
                                 <option value={3}>3CE</option>
+                            </select>
+                        </div>
+
+                        <div className='mb-3'>
+                            <label htmlFor='Status' className='form-label'>Status</label>
+                            <select disabled className='form-select' aria-label="Default select example" name='status' value={status.id} onChange={(e) => onInputChange(e)}>
+                                <option value={1}>Còn</option>
+                                <option value={2}>Hết</option>
                             </select>
                         </div>
 

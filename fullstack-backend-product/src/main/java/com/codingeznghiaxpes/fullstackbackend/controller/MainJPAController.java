@@ -1,7 +1,13 @@
 package com.codingeznghiaxpes.fullstackbackend.controller;
 
 import com.codingeznghiaxpes.fullstackbackend.model.Product;
+import com.codingeznghiaxpes.fullstackbackend.model.Brand;
+import com.codingeznghiaxpes.fullstackbackend.model.SubCategory;
+import com.codingeznghiaxpes.fullstackbackend.model.Status;
 import com.codingeznghiaxpes.fullstackbackend.service.ProductService;
+import com.codingeznghiaxpes.fullstackbackend.service.BrandService;
+import com.codingeznghiaxpes.fullstackbackend.service.StatusService;
+import com.codingeznghiaxpes.fullstackbackend.service.SubCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +21,14 @@ public class MainJPAController {
     @Autowired
     private ProductService productService;
 
-    private Product product;
+    @Autowired
+    private BrandService brandService;
+
+    @Autowired
+    private StatusService statusService;
+
+    @Autowired
+    private SubCategoryService subCategoryService;
 
     @GetMapping("/products")
     public List<Product> showProduct() {
@@ -42,4 +55,27 @@ public class MainJPAController {
     public String deleteProduct(@PathVariable Long id) {
         return productService.deleteProduct(id);
     }
+
+    @GetMapping("/products/api/search")
+    public List<Product> searchProducts(
+            @RequestParam(required = false) String productName,
+            @RequestParam(required = false) Double sellPrice,
+            @RequestParam(required = false) Long brandId,
+            @RequestParam(required = false) Long subCategoryId,
+            @RequestParam(required = false) Long statusId
+    ) {
+        Brand brand = brandService.getBrandById(brandId);
+        Status status = statusService.getStatusById(statusId);
+        SubCategory subCategory = subCategoryService.getSubCateById(subCategoryId);
+        if (productName != null && !productName.trim().isEmpty() && sellPrice != null) {
+            return productService.searchProductsFull(productName, sellPrice, brand, subCategory, status);
+        } else if (productName != null && !productName.trim().isEmpty()) {
+            return productService.searchProductsWithName(productName, brand, subCategory, status);
+        } else if (sellPrice != null) {
+            return productService.searchProductWithSellPrice(sellPrice, brand, subCategory, status);
+        } else {
+            return productService.searchProducts(brand, subCategory, status);
+        }
+    }
+
 }
