@@ -62,8 +62,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> searchProducts(Brand brand,
-                                       SubCategory subCate,
-                                       Status status) {
+                                        SubCategory subCate,
+                                        Status status) {
         return productRepository.findByBrandsAndSubCategoryAndStatus(
                 brand,
                 subCate,
@@ -73,10 +73,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> searchProductsFull(String productName,
-                                        Double sellPrice,
-                                        Brand brand,
-                                        SubCategory subCate,
-                                        Status status) {
+                                            Double sellPrice,
+                                            Brand brand,
+                                            SubCategory subCate,
+                                            Status status) {
         return productRepository.findByProductNameContainingAndSellPriceAndBrandsAndSubCategoryAndStatus(
                 productName,
                 sellPrice,
@@ -112,5 +112,18 @@ public class ProductServiceImpl implements ProductService {
         );
     }
 
+    public List<Product> searchProductWithProperty(String productName,
+                                                   Double sellPrice,
+                                                   Long brandId,
+                                                   Long subCateId,
+                                                   Long statusId) {
+        return productRepository.searchProducts(
+                productName,
+                sellPrice,
+                brandId,
+                subCateId,
+                statusId
+        );
+    }
 
 }

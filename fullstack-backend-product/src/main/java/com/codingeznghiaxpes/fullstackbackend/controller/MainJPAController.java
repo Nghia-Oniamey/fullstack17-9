@@ -78,4 +78,20 @@ public class MainJPAController {
         }
     }
 
+    @GetMapping("/products/api/search2")
+    public List<Product> searchProducts2(
+            @RequestParam(required = false) String productName,
+            @RequestParam(required = false) Double sellPrice,
+            @RequestParam(required = false) Long brandId,
+            @RequestParam(required = false) Long subCategoryId,
+            @RequestParam(required = false) Long statusId
+    ){
+        return productService.searchProductWithProperty(
+                productName,
+                sellPrice,
+                brandId,
+                subCategoryId,
+                statusId
+        );
+    }
 }

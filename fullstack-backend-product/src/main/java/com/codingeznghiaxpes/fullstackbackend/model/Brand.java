@@ -8,7 +8,6 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-//@IdClass(ProductPK.class)
 @Table(name = "brand")
 public class Brand {
 

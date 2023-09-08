@@ -24,7 +24,7 @@ public class StatusServiceImpl implements StatusService {
 
     @Override
     public Status getStatusById(Long id) {
-        if(id == null){
+        if (id == null) {
             return null;
         }
         return statusRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));

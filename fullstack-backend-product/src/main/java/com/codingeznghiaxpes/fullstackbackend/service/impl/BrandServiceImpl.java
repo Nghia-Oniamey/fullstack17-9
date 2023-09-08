@@ -24,7 +24,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public Brand getBrandById(Long id) {
-        if(id == null){
+        if (id == null) {
             return null;
         }
         return brandRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));

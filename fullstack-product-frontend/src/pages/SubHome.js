@@ -52,7 +52,12 @@ export default function SubHome() {
 
         console.log(queryParams);
 
+        // cũ 
         const result = await axios.get(`http://localhost:8080/service/products/api/search?${queryParams}`);
+
+        // mới
+        // const result = await axios.get(`http://localhost:8080/service/products/api/search2?${queryParams}`);
+
         setProducts(result.data);
     };
 
@@ -143,7 +148,7 @@ export default function SubHome() {
                                             <div className="d-grid gap-2" key={brand.id}>{brand.brandName}</div>
                                         ))}
                                     </td>
-                                    <td>{product.subCategory.category.cateName}</td>
+                                    <td>{product.subCategory.subCateName}</td>
                                     <td>{product.sellPrice}</td>
                                     <td>{product.status.statusName}</td>
                                     <td>

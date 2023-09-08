@@ -11,7 +11,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-//@IdClass(ProductPK.class)
 @Table(name = "sub_category")
 public class SubCategory {
     @Id
