@@ -102,9 +102,9 @@ export default function ViewProduct() {
                         <div className='mb-3'>
                             <label htmlFor='SubCategory' className='form-label'>SubCategory</label>
                             <select disabled className='form-select' name='subCategory' value={subCategory.id} onChange={(e) => onInputChange(e)}>
-                                <option value={1}>Mỹ Phẩm 1</option>
-                                <option value={2}>Mỹ Phẩm 2</option>
-                                <option value={3}>Mỹ Phẩm 3</option>
+                                <option value={1}>Mỹ Phẩm 01</option>
+                                <option value={2}>Mỹ Phẩm 02</option>
+                                <option value={3}>Mỹ Phẩm 03</option>
                             </select>
                         </div>
 

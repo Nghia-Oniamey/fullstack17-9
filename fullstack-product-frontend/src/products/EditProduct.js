@@ -39,7 +39,7 @@ export default function EditProduct() {
 
         if (name === 'subCategory') {
             setProduct({ ...product, [name]: { id: value } });
-        }if (name === 'status') {
+        }else if (name === 'status') {
             setProduct({ ...product, [name]: { id: value } });
         }
          else if (name === 'brands') {
@@ -117,9 +117,9 @@ export default function EditProduct() {
                         <div className='mb-3'>
                             <label htmlFor='SubCategory' className='form-label'>SubCategory</label>
                             <select className='form-select' name='subCategory' value={subCategory.id} onChange={(e) => onInputChange(e)}>
-                                <option value={1}>Mỹ Phẩm 1</option>
-                                <option value={2}>Mỹ Phẩm 2</option>
-                                <option value={3}>Mỹ Phẩm 3</option>
+                                <option value={1}>Mỹ Phẩm 01</option>
+                                <option value={2}>Mỹ Phẩm 02</option>
+                                <option value={3}>Mỹ Phẩm 03</option>
                             </select>
                         </div>
 
