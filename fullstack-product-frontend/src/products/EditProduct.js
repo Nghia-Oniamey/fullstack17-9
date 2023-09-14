@@ -39,7 +39,7 @@ export default function EditProduct() {
 
         if (name === 'subCategory') {
             setProduct({ ...product, [name]: { id: value } });
-        }if (name === 'status') {
+        }else if (name === 'status') {
             setProduct({ ...product, [name]: { id: value } });
         }
          else if (name === 'brands') {
