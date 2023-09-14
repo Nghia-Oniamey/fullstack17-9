@@ -42,6 +42,7 @@ public interface ProductService {
     List<Product> searchProductWithProperty(String productName,
                                             Double sellPrice,
                                             Long brandId,
-                                            Long subCateId,
+                                            Long categoryId,
                                             Long statusId);
+
 }

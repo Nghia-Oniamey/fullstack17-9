@@ -5,15 +5,37 @@ import { Link } from 'react-router-dom';
 export default function SubHome() {
 
     const [products, setProducts] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [statuses, setStatus] = useState([]);
+    const [brands, setBrand] = useState([]);
 
     useEffect(() => {
         loadProduct();
+        loadCategory();
+        loadBrand();
+        loadStatus();
     }, []);
 
     const loadProduct = async () => {
         const result = await axios.get("http://localhost:8080/service/products");
         setProducts(result.data);
     };
+
+    const loadCategory = async () => {
+        const result = await axios.get("http://localhost:8080/category");
+        setCategories(result.data);
+    };
+
+    const loadBrand = async () => {
+        const result = await axios.get("http://localhost:8080/brand");
+        setBrand(result.data);
+    };
+
+    const loadStatus = async () => {
+        const result = await axios.get("http://localhost:8080/status");
+        setStatus(result.data);
+    };
+    
 
     const deleteProduct = async (id) => {
         await axios.delete(`http://localhost:8080/service/product/${id}`);
@@ -25,11 +47,11 @@ export default function SubHome() {
         productName: "",
         sellPrice: "",
         brandId: "1",
-        subCategoryId: "1",
+        categoryId: "1",
         statusId: "1"
     });
 
-    const { productName, sellPrice, brandId, subCategoryId, statusId } = search;
+    const { productName, sellPrice, brandId, categoryId, statusId } = search;
 
     const onInputChange = (e) => {
 
@@ -46,17 +68,17 @@ export default function SubHome() {
             productName,
             sellPrice,
             brandId,
-            subCategoryId,
+            categoryId,
             statusId,
         });
 
         console.log(queryParams);
 
         // cũ 
-        const result = await axios.get(`http://localhost:8080/service/products/api/search?${queryParams}`);
+        // const result = await axios.get(`http://localhost:8080/service/products/api/search?${queryParams}`);
 
         // mới
-        // const result = await axios.get(`http://localhost:8080/service/products/api/search2?${queryParams}`);
+        const result = await axios.get(`http://localhost:8080/service/products/api/search2?${queryParams}`);
 
         setProducts(result.data);
     };
@@ -84,25 +106,29 @@ export default function SubHome() {
                         <label htmlFor='Brands' className='form-label'>Brands</label>
                         <select className='form-select' aria-label="Default select example"
                             name='brandId'
-                            defaultValue={brandId}
+                            defaultValue={1}
                             onChange={(e) => onInputChange(e)}
                         >
-                            <option value={1}>1CE</option>
-                            <option value={2}>2CE</option>
-                            <option value={3}>3CE</option>
+                            {brands.map((brand) => (
+                                <option key={brand.id} value={brand.id}>
+                                    {brand.brandName}
+                                </option>
+                            ))}
                         </select>
                     </div>
 
                     <div className='mb-3 col'>
-                        <label htmlFor='SubCategory' className='form-label'>SubCategory</label>
+                        <label htmlFor='Category' className='form-label'>Category</label>
                         <select className='form-select'
-                            name='subCategoryId'
-                            defaultValue={subCategoryId}
+                            name='categoryId'
+                            defaultValue={1}
                             onChange={(e) => onInputChange(e)}
                         >
-                            <option value={1}>Mỹ Phẩm 1</option>
-                            <option value={2}>Mỹ Phẩm 2</option>
-                            <option value={3}>Mỹ Phẩm 3</option>
+                            {categories.map((category) => (
+                                <option key={category.id} value={category.id}>
+                                    {category.cateName}
+                                </option>
+                            ))}
                         </select>
                     </div>
 
@@ -111,11 +137,14 @@ export default function SubHome() {
                         <label htmlFor='Status' className='form-label'>Status</label>
                         <select className='form-select' aria-label="Default select example"
                             name='statusId'
-                            defaultValue={statusId}
+                            defaultValue={1}
                             onChange={(e) => onInputChange(e)}
                         >
-                            <option value={1}>Còn</option>
-                            <option value={2}>Hết</option>
+                             {statuses.map((status) => (
+                                <option key={status.id} value={status.id}>
+                                    {status.statusName}
+                                </option>
+                            ))}
                         </select>
                     </div>
                 </div>

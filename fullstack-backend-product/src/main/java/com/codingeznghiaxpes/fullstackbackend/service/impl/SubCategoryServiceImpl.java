@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@Transactional
 public class SubCategoryServiceImpl implements SubCategoryService {
 
     @Autowired
@@ -22,6 +21,7 @@ public class SubCategoryServiceImpl implements SubCategoryService {
         return subCategoryRepository.findAll();
     }
 
+    @Transactional
     @Override
     public SubCategory getSubCateById(Long id) {
         if (id == null) {

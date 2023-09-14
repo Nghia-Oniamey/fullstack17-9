@@ -37,16 +37,15 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "LEFT JOIN p.brands b " +
             "WHERE (:productName IS NULL OR p.productName LIKE %:productName%) " +
             "AND (:sellPrice IS NULL OR p.sellPrice = :sellPrice) " +
-            "AND (:subCateId IS NULL OR p.subCategory.id = :subCateId) " +
+            "AND (:CategoryId IS NULL OR p.subCategory.category.id = :CategoryId) " +
             "AND (:statusId IS NULL OR p.status.id = :statusId) " +
             "AND (:brandId IS NULL OR b.id = :brandId)")
     List<Product> searchProducts(
             String productName,
             Double sellPrice,
             Long brandId,
-            Long subCateId,
+            Long CategoryId,
             Long statusId
     );
-
 
 }

@@ -83,14 +83,14 @@ public class MainJPAController {
             @RequestParam(required = false) String productName,
             @RequestParam(required = false) Double sellPrice,
             @RequestParam(required = false) Long brandId,
-            @RequestParam(required = false) Long subCategoryId,
+            @RequestParam(required = false) Long categoryId,
             @RequestParam(required = false) Long statusId
-    ){
+    ) {
         return productService.searchProductWithProperty(
                 productName,
                 sellPrice,
                 brandId,
-                subCategoryId,
+                categoryId,
                 statusId
         );
     }

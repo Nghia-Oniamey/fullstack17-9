@@ -115,13 +115,13 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> searchProductWithProperty(String productName,
                                                    Double sellPrice,
                                                    Long brandId,
-                                                   Long subCateId,
+                                                   Long categoryId,
                                                    Long statusId) {
         return productRepository.searchProducts(
                 productName,
                 sellPrice,
                 brandId,
-                subCateId,
+                categoryId,
                 statusId
         );
     }
