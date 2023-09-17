@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findByProductNameContainingAndSellPriceAndBrandsAndSubCategoryAndStatus(String productName,
@@ -33,13 +33,15 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
                                                       SubCategory ubCate,
                                                       Status status);
 
-    @Query("SELECT DISTINCT p FROM Product p " +
-            "LEFT JOIN p.brands b " +
-            "WHERE (:productName IS NULL OR p.productName LIKE %:productName%) " +
-            "AND (:sellPrice IS NULL OR p.sellPrice = :sellPrice) " +
-            "AND (:CategoryId IS NULL OR p.subCategory.category.id = :CategoryId) " +
-            "AND (:statusId IS NULL OR p.status.id = :statusId) " +
-            "AND (:brandId IS NULL OR b.id = :brandId)")
+    @Query("""
+            SELECT DISTINCT p FROM Product p
+            LEFT JOIN p.brands b
+            WHERE (:productName IS NULL OR p.productName LIKE %:productName%)
+            AND (:sellPrice IS NULL OR p.sellPrice = :sellPrice)
+            AND (:CategoryId IS NULL OR p.subCategory.category.id = :CategoryId)
+            AND (:statusId IS NULL OR p.status.id = :statusId)
+            AND (:brandId IS NULL OR b.id = :brandId)
+            """)
     List<Product> searchProducts(
             String productName,
             Double sellPrice,

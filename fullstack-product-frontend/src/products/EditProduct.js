@@ -6,6 +6,31 @@ export default function EditProduct() {
 
     const { id } = useParams()
 
+    const [statuses, setStatus] = useState([]);
+    const [brandss, setBrand] = useState([]);
+    const [subCategories, setSubCategory] = useState([]);
+
+    const loadBrand = async () => {
+        const result = await axios.get("http://localhost:8080/brand");
+        setBrand(result.data);
+    };
+
+    const loadStatus = async () => {
+        const result = await axios.get("http://localhost:8080/status");
+        setStatus(result.data);
+    };
+
+    const loadSubcategory = async () => {
+        const result = await axios.get("http://localhost:8080/sub-category");
+        setSubCategory(result.data);
+    }
+
+    useEffect(() => {
+        loadSubcategory();
+        loadBrand();
+        loadStatus();
+    }, []);
+
     let navigate = useNavigate();
 
     const [product, setProduct] = useState({
@@ -39,10 +64,10 @@ export default function EditProduct() {
 
         if (name === 'subCategory') {
             setProduct({ ...product, [name]: { id: value } });
-        }else if (name === 'status') {
+        } else if (name === 'status') {
             setProduct({ ...product, [name]: { id: value } });
         }
-         else if (name === 'brands') {
+        else if (name === 'brands') {
             setProduct({ ...product, [name]: [{ id: value }] });
         }
         else {
@@ -59,7 +84,7 @@ export default function EditProduct() {
 
     useEffect(() => {
         loadProduct();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const loadProduct = async () => {
@@ -117,27 +142,40 @@ export default function EditProduct() {
                         <div className='mb-3'>
                             <label htmlFor='SubCategory' className='form-label'>SubCategory</label>
                             <select className='form-select' name='subCategory' value={subCategory.id} onChange={(e) => onInputChange(e)}>
-                                <option value={1}>Mỹ Phẩm 01</option>
-                                <option value={2}>Mỹ Phẩm 02</option>
-                                <option value={3}>Mỹ Phẩm 03</option>
+                                {
+                                    subCategories.map((subCategory) => (
+                                        <option key={subCategory.id} value={subCategory.id}>
+                                            {subCategory.subCateName}
+                                        </option>
+                                    ))
+                                }
                             </select>
                         </div>
 
                         <div className='mb-3'>
                             <label htmlFor='Brands' className='form-label'>Brands</label>
                             <select className='form-select' aria-label="Default select example" name='brands' value={brands[0].id} onChange={(e) => onInputChange(e)}>
-                                <option value={1}>1CE</option>
-                                <option value={2}>2CE</option>
-                                <option value={3}>3CE</option>
+                                {
+                                    brandss.map((brand) => (
+                                        <option key={brand.id} value={brand.id}>
+                                            {brand.brandName}
+                                        </option>
+                                    ))
+                                }
                             </select>
                         </div>
 
                         <div className='mb-3'>
                             <label htmlFor='Status' className='form-label'>Status</label>
                             <select className='form-select' aria-label="Default select example" name='status' value={status.id} onChange={(e) => onInputChange(e)}>
-                                <option value={1}>Còn</option>
-                                <option value={2}>Hết</option>
-                            </select>   
+                                {
+                                    statuses.map((status) => (
+                                        <option key={status.id} value={status.id}>
+                                            {status.statusName}
+                                        </option>
+                                    ))
+                                }
+                            </select>
                         </div>
 
                         <div className='mt-4'>

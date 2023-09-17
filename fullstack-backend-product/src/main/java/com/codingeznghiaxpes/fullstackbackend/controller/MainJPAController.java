@@ -9,6 +9,7 @@ import com.codingeznghiaxpes.fullstackbackend.service.BrandService;
 import com.codingeznghiaxpes.fullstackbackend.service.StatusService;
 import com.codingeznghiaxpes.fullstackbackend.service.SubCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -49,7 +50,6 @@ public class MainJPAController {
     Product getProductById(@PathVariable Long id) {
         return productService.showDetailProduct(id);
     }
-
 
     @DeleteMapping("/product/{id}")
     public String deleteProduct(@PathVariable Long id) {
@@ -94,4 +94,35 @@ public class MainJPAController {
                 statusId
         );
     }
+
+    @GetMapping("/products/api/search3")
+    public ResponseEntity<?> searchProducts3(
+            @RequestParam(required = false) String productName,
+            @RequestParam(required = false) Double sellPrice,
+            @RequestParam(required = false) Long brandId,
+            @RequestParam(required = false) Long categoryId,
+            @RequestParam(required = false) Long statusId
+    ) {
+        return ResponseEntity.ok((productService.searchProductWithProperty(
+                productName,
+                sellPrice,
+                brandId,
+                categoryId,
+                statusId
+        )));
+    }
+
+    @GetMapping("/products/api/search4")
+    public ResponseEntity<?> searchProducts4(
+            @RequestParam(required = false) Product product
+    ) {
+        return ResponseEntity.ok((productService.searchProductWithProperty(
+                product.getProductName(),
+                product.getSellPrice(),
+                product.getBrands().get(0).getId(),
+                product.getSubCategory().getId(),
+                product.getStatus().getId()
+        )));
+    }
+
 }

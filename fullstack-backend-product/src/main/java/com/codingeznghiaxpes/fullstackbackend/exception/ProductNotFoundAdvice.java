@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class ProductNotFoundAdvice {
 
     @ResponseBody

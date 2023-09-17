@@ -1,12 +1,31 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function AddProduct() {
 
+  const [brandss, setBrand] = useState([]);
+  const [subCategories, setSubCategory] = useState([]);
+
   let navigate = useNavigate();
 
+  const loadBrand = async () => {
+    const result = await axios.get("http://localhost:8080/brand");
+    setBrand(result.data);
+  };
+
+  const loadSubcategory = async () => {
+    const result = await axios.get("http://localhost:8080/sub-category");
+    setSubCategory(result.data);
+  }
+
+  useEffect(() => {
+    loadSubcategory();
+    loadBrand();
+  }, []);
+
   const [product, setProduct] = useState({
+
     productName: "",
     color: "",
     quantity: "",
@@ -24,6 +43,7 @@ export default function AddProduct() {
         id: 1
       }
     ]
+
   });
 
   const { productName, color, quantity, sellPrice, originPrice, subCategory, brands } = product;
@@ -90,7 +110,7 @@ export default function AddProduct() {
 
             <div className='mb-3'>
               <label htmlFor='ProductOriginPrice' className='form-label'>Product Origin Price</label>
-              <input type={'text'} className='form-control' placeholder="Enter Subcategory" name='originPrice'
+              <input type={'text'} className='form-control' placeholder="Enter Origin Price" name='originPrice'
                 value={originPrice}
                 onChange={(e) => onInputChange(e)}
               />
@@ -99,18 +119,26 @@ export default function AddProduct() {
             <div className='mb-3'>
               <label htmlFor='SubCategory' className='form-label'>SubCategory</label>
               <select className='form-select' name='subCategory' value={subCategory.id} onChange={(e) => onInputChange(e)}>
-                <option value={1}>Mỹ Phẩm 1</option>
-                <option value={2}>Mỹ Phẩm 2</option>
-                <option value={3}>Mỹ Phẩm 3</option>
+                {
+                  subCategories.map((subCategory) => (
+                    <option key={subCategory.id} value={subCategory.id}>
+                      {subCategory.subCateName}
+                    </option>
+                  ))
+                }
               </select>
             </div>
 
             <div className='mb-3'>
               <label htmlFor='Brands' className='form-label'>Brands</label>
               <select className='form-select' aria-label="Default select example" name='brands' value={brands[0].id} onChange={(e) => onInputChange(e)}>
-                <option value={1}>1CE</option>
-                <option value={2}>2CE</option>
-                <option value={3}>3CE</option>
+                {
+                  brandss.map((brand) => (
+                    <option key={brand.id} value={brand.id}>
+                      {brand.brandName}
+                    </option>
+                  ))
+                }
               </select>
             </div>
 

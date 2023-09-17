@@ -54,7 +54,6 @@ export default function SubHome() {
     const { productName, sellPrice, brandId, categoryId, statusId } = search;
 
     const onInputChange = (e) => {
-
         const { name, value } = e.target;
         setSearch({ ...search, [name]: value });
 
@@ -78,7 +77,9 @@ export default function SubHome() {
         // const result = await axios.get(`http://localhost:8080/service/products/api/search?${queryParams}`);
 
         // mới
-        const result = await axios.get(`http://localhost:8080/service/products/api/search2?${queryParams}`);
+        // const result = await axios.get(`http://localhost:8080/service/products/api/search2?${queryParams}`);
+
+        const result = await axios.get(`http://localhost:8080/service/products/api/search3?${queryParams}`);
 
         setProducts(result.data);
     };
@@ -140,7 +141,7 @@ export default function SubHome() {
                             defaultValue={1}
                             onChange={(e) => onInputChange(e)}
                         >
-                             {statuses.map((status) => (
+                            {statuses.map((status) => (
                                 <option key={status.id} value={status.id}>
                                     {status.statusName}
                                 </option>
@@ -186,6 +187,7 @@ export default function SubHome() {
                                         <button onClick={() => deleteProduct(product.id)} className='btn btn-danger mx-2'>Delete</button>
                                     </td>
                                 </tr>
+                                
                             ))
                         }
                     </tbody>
